@@ -86,6 +86,8 @@
         $('#password, #cfmPassword').on('keyup', function () {
         if ($('#password').val() != $('#cfmPassword').val()) {
             $('#message').html('Confirmed password not matching.').css('color', 'red');
+        } else {
+            $('#message').html('');
         }})
     </script>
 </body>
