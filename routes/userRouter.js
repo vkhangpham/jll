@@ -14,7 +14,7 @@ router.post('/signup', (req, res, next) => {
     .then((user) => {
         if (user) {
             res.statusCode = 500;
-            res.render('signup', {message: "Username already taken."})
+            res.render('signup', {message: "Username has been already taken."})
         }
         else {
             Users.register(new Users({ username: req.body.username }),
