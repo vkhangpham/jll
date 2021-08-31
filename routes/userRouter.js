@@ -20,8 +20,7 @@ router.post('/signup', (req, res, next) => {
         req.body.password, (err, user) => {
             if (err) {
                 res.statusCode = 500;
-                res.setHeader('Content-Type', 'application/json');
-                res.json({ err: err });
+                next(err);
             } else {
                 if (req.body.firstName)
                     user.firstName = req.body.firstName;
@@ -32,15 +31,13 @@ router.post('/signup', (req, res, next) => {
                 user.save((err, user) => {
                     if (err) {
                         res.statusCode = 500;
-                        res.setHeader('Content-Type', 'application/json');
-                        res.json({ err: err });
+                        next(err);
                         return;
                     }
                     passport.authenticate('local')(req, res, () => {
                         Carts.create({ user: user._id })
                             .then(() => {
                                 res.statusCode = 200;
-                                res.setHeader('Content-Type', 'application/json');
                                 res.redirect('/');
                             }, (err) => next(err))
                             .catch((err) => next(err));
