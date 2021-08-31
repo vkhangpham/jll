@@ -6,7 +6,6 @@ const logger = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-const cool = require('cool-ascii-faces');
 
 // Router
 const config = require('./config');
@@ -31,7 +30,7 @@ const app = express();
 const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false);
 mongoose.connect(
-  process.env.MONGO_URI, {
+  config.mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -56,7 +55,7 @@ app.use("script", express.static(__dirname, + 'script'));
 
 app.use(session({
   name: 'session-id',
-  secret: process.env.SESSION_KEY,
+  secret: config.sessionKey,
   saveUninitialized: false,
   resave: false,
   store: new FileStore(),

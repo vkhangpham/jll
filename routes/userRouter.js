@@ -9,6 +9,16 @@ const router = express.Router();
 router.use(express.urlencoded({ extended: true }));
 router.use(express.json())
 
+router.get('/login', (req, res) => {
+    res.statusCode = 200;
+    res.render('login', {message: ""});
+})
+
+router.get('/signup', (req, res) => {
+    res.statusCode = 200;
+    res.render('signup', {message: ""});
+})
+
 router.post('/signup', (req, res, next) => {
     Users.findOne({username: req.body.username})
     .then((user) => {

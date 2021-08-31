@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const cool = require('cool-ascii-faces');
 const Books = require('../models/books');
 const Stock = require('../models/stock');
 const Orders = require('../models/orders');
@@ -38,8 +37,6 @@ router.get('/about', (req, res, next) => {
   res.statusCode = 200;
   res.render('about', { user: req.user });
 });
-
-router.get('/cool', (req, res) => res.send(cool()))
 
 router.get('/profile', authenticate.verifyUser, (req, res, next) => {
   Users.findById(req.user._id).lean()
