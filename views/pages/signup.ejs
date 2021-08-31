@@ -53,6 +53,7 @@
                         <label for="cfPassword"><strong>CONFIRM PASSWORD</strong></label>
                         <input type="password" name="cfmpassword" class="form-control" id="cfmPassword" placeholder="Confirm Password" required>
                         <div class="invalid-feedback">Please confirm your password.</div>
+                        <div id="message"></div>
                     </div>
                     <div class="form-group">
                         <input type="checkbox" id="checkbox" required>
@@ -81,6 +82,11 @@
                 });
             }, false);
         })();
+
+        $('#password, #cfmPassword').on('keyup', function () {
+        if ($('#password').val() == $('#cfmPassword').val()) {
+            $('#message').html('Confirmed password not matching.').css('color', 'red');
+        }})
     </script>
 </body>
 </html>

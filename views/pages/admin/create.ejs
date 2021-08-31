@@ -63,6 +63,7 @@
                                 <div class="invalid-feedback">
                                     Please confirm your password.
                                 </div>
+                                <div id="message"></div>
                             </div>
                             <div class="row justify-content-end align-items-center pt-4">
                                 <div class="col-2 col-sm-offset-3">
@@ -81,6 +82,12 @@
     <script src="/script/admin/need-validation.js"></script>
     <script src="/script/admin/sidebar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+         $('#password, #cfmPassword').on('keyup', function () {
+        if ($('#password').val() == $('#cfmPassword').val()) {
+            $('#message').html('Confirmed password not matching.').css('color', 'red');
+        }})
+    </script>
 </body>
 
 </html>
