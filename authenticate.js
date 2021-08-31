@@ -25,7 +25,7 @@ exports.verifyUser = (req, res, next) => {
     } else {
         var err = new Error('You need to login to perform this operation!');
         err.status = 403;
-        res.redirect('/login');
+        res.redirect('/users/login');
     }
 }
 
@@ -35,6 +35,6 @@ exports.verifyAdmin = (req, res, next) => {
     } else {
         var err = new Error('You are not authorized to perform this operation!');
         err.status = 403;
-        res.redirect('/login');
+        res.redirect('/users/login');
     }
 }
