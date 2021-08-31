@@ -31,7 +31,7 @@ const app = express();
 const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false);
 mongoose.connect(
-  config.mongoURI, {
+  process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -56,7 +56,7 @@ app.use("script", express.static(__dirname, + 'script'));
 
 app.use(session({
   name: 'session-id',
-  secret: config.sessionKey,
+  secret: process.env.SESSION_KEY,
   saveUninitialized: false,
   resave: false,
   store: new FileStore(),
