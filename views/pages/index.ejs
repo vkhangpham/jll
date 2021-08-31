@@ -223,8 +223,11 @@
 						<div class="owl-item">
 							<div
 								class="bbb_viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-								<div class="bbb_viewed_image shadow border rounded"><img src="<%= book.image %>"
-										alt="">
+								<div class="bbb_viewed_image shadow border rounded">
+									<a href="/shop/book/<%= book._id %>" title="<%= book.name %>">
+										<img src="<%= book.image %>">
+									</a>
+									
 								</div>
 								<div class="bbb_viewed_content text-center">
 									<div class="bbb_viewed_price">
