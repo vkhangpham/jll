@@ -104,11 +104,16 @@ shopRouter.route('/book/:bookID')
                     .find({ category: val2, _id: { $ne: val3 } })
                     .limit(6)
                     .exec((err, book2) => {
-                        if (err) {
-                            console.log(err);
+                        Stock.findOne({bookID: book1._id})
+                        .then((stock) => {
+                            if (err) {
+                            next(err);
                         } else {
-                            res.render('details', { data1: book1, data2: book2, user: req.user });
+                            res.statusCode = 200;
+                            res.render('details', { stock: stock, data1: book1, data2: book2, user: req.user });
                         }
+                        })
+                        
                     })
             })
 
