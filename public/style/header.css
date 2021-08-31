@@ -1,0 +1,47 @@
+.menu-item {
+	font-size: 20px;
+	position: relative;
+	text-transform: uppercase;
+	text-decoration: none;
+	padding-bottom: 8px;
+}
+
+.menu-item:before, .menu-item:after {
+	content: "";
+	position: absolute;
+	bottom: 2px;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background-color: #414d3a;
+}
+.active-menu a:after {
+	opacity: 1;
+	bottom: 6px;
+}
+.active-menu a {
+	pointer-events: none;
+}
+.active-menu a {
+	font-weight: bolder;
+}
+a:before {
+	opacity: 0;
+	transform: translateY(-8px);
+	transition: transform 0s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s;
+}
+a:after {
+	opacity: 0;
+	transform: translateY(4px);
+	transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
+}
+a:hover:before, a:hover:after, a:focus:before, a:focus:after {
+	opacity: 1;
+	transform: translateY(0);
+}
+a:hover:before, a:focus:before{
+	transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) opacity 0.2s;	
+}
+a:hover:after, a:focus:after{
+	transition: transform 0s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0s 0.2s;
+}

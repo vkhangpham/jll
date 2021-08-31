@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Payment Details | JongLe'Livre</title>
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat&amp;display=swap'>
+    <link rel="stylesheet" type="text/css" href="/style/payment.css" />
+    <link rel="shortcut icon" href="/img/logo.ico" />
+    
+    <!-- JS files -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+</head>
+
+<body>
+    <% if (user) { %>
+        <%- include('../partials/header', {user: user}) %>
+    <% } else { %> 
+        <%- include('../partials/header') %>
+    <% } %> 
+
+    <div class="bs-example">
+        <div class="btn-group d-flex">
+            <a href="/cart" type="button" class="btn btn-outline-secondary">Shopping Cart</a>
+            <a href="/checkout/shipping" type="button" class="btn btn-outline-secondary">Shipping Details</a>
+            <a href="#" type="button" class="btn btn-outline-secondary active-vl">Payment Options</a>
+        </div>
+    </div>
+
+    <div class="main container-fluid paddding">
+        <div class="row">
+            <section id="sidebar" class="col-9">
+                <div class="card card-body mb-3">
+                    <div class="row border-bottom category">
+                        <h6 class="bbb_viewed_title p-1 col-auto mr-auto"><span>Payment Method</span></h6>
+                    </div>
+                    <form class="forms-sample">
+                        <div class="col-md-12 mb-3">
+                            <div class="p-3 border">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="customCheck"
+                                        id="customCheck1" checked>
+                                    <label class="custom-control-label" for="customCheck1">Credit Card</label>
+                                    <p class="text-muted small" style="font-size: small;">We only accept AGRIBANK card at the moment. We are sorry for this inconvenience</p>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="ID Card" id="creditCard">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i
+                                                            class="bi-credit-card-2-front"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="MM-YY" id="expiredDate">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="CVV" id="cvv">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Card Holder Name" id="cardName">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i
+                                                            class="bi-person-badge"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="p-3 border">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="customCheck"
+                                        id="customCheck2" disabled>
+                                    <label class="custom-control-label" for="customCheck2">Paypal</label>
+                                    <p class="text-muted small" style="font-size: small;">This method is temporarily unavailable.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card card-body">
+                    <div class="row border-bottom category">
+                        <h6 class="bbb_viewed_title p-1 col-auto mr-auto"><span>Review</span></h6>
+                    </div>
+                    <div class="review">
+                        <div class="row text-center">
+                            <% data.items.forEach(function(item) { %>
+                            <div class="col-2">
+                                <div class="aside"><img src=<%=item.bookID.image %> class="img-sm"></div>
+                                <div class="bbb_viewed_name"><a href="/shop/book/<%=item.bookID._id %>" title="<%= item.bookID.name %>"><%=item.bookID.name %></a></div>
+                                <div><span class="bbb_viewed_price"><%=item.bookID.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ) %></span> x <%=item.quantity %></div>
+                            </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sidebar" class="col-3">
+                <div class="card card-body">
+                    <div class="row border-bottom category">
+                        <h6 class="bbb_viewed_title p-1 col-auto mr-auto"><span>Summary</span></h6>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-5">
+                                <p class="title text-dark" style="font-size: large;">Subtotal:</p>
+                                <p class="title text-dark" style="font-size: large;">Shipping:</p>
+                                <p class="title text-dark" style="font-size: large;">Taxes:</p>
+                            </div>
+                            <div class="col-7">
+                                <p class="title text-dark font-weight-bold" style="font-size: large;">
+                                    <%= data.subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ) %> VND
+                                </p>
+                                <p class="title text-dark" style="font-size: large;">Free</p>
+                                <p class="title text-dark" style="font-size: large;">Free</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-5">
+                                <p class="title text-dark" style="font-size: large;">Total:</p>
+                            </div>
+                            <div class="col-7"> 
+                                <p class="title text-dark font-weight-bold" style="font-size: large;">
+                                    <%= data.subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ) %> VND
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <button type="button" class="btn btn-secondary btn-lg" onclick="checkout()">Pay Now</button>
+                        <a href="/shop"><button type="button" class="btn btn-secondary btn-lg">Cancel</button></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!--- Footer -->
+	<%- include('../partials/footer') %>
+    <script src="/script/need-validation.js"></script>
+    <script src="/script/payment.js"></script>
+</body>
+</html>

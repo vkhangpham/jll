@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Log In | JongLe'Livre</title>
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="/style/signin.css" />
+    <link rel="shortcut icon" href="/img/logo.ico" />
+
+    <!-- JS files -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+</head>
+
+<body>
+    <div class="main container-fluid paddding">
+        <div class="card-body">
+            <div class="col-md-12">
+                <form action="http://localhost:3000/users/login" method="POST" role="form" class="needs-validation" method="post" novalidate>
+                    <h3 class="text-center mb-4">LOG IN</h3>
+                    <div class="form-group">
+                        <label for="inputUsername"><strong>USERNAME</strong></label>
+                        <input type="username" name="username" tabindex="1" class="form-control" id="inputUsername" placeholder="Username" required>
+                        <div class="invalid-feedback">Please enter your user name.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword"><strong>PASSWORD</strong></label>
+                        <input type="password" name="password" tabindex="2" class="form-control" id="inputPassword" placeholder="Password" required>
+                        <div class="invalid-feedback">Please enter your password.</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-check-label"><input type="checkbox"> Remember me</label>
+                    </div>
+                    <button type="submit" name="login-submit" class="btn btn-success">SIGN IN</button>
+                </form>
+                <hr>
+                <div class="form-link text-center">
+                    <a href="/signup"><strong>Create Account</strong></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>

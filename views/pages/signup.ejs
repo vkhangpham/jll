@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign Up | JongLe'Livre</title>
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/style/signup.css" />
+    <link rel="shortcut icon" href="/img/logo.ico" />
+
+    <!-- JS files -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+</head>
+
+<body>
+    <div class="main container-fluid paddding">
+        <div class="card-body">
+            <div class="col-md-12">
+                <form action="http://localhost:3000/users/signup" method="POST" class="needs-validation" method="post" novalidate>
+                    <h3 class="text-center mb-4">SIGN UP</h3>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label for="inputFirstname"><strong>First Name</strong></label>
+                            <input type="text" name="firstName" class="form-control" id="firstName" placeholder="First Name" required>
+                            <div class="invalid-feedback">Please enter your first name.</div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="inputLastname"><strong>Last Name</strong></label>
+                            <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Last Name" required>
+                            <div class="invalid-feedback">Please enter your last name.</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputUsername"><strong>Username</strong></label>
+                        <input type="text" name="username" class="form-control" id="username" placeholder="Username" required>
+                        <div class="invalid-feedback">Please enter your email.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail"><strong>EMAIL</strong></label>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" required>
+                        <div class="invalid-feedback">Please enter your email.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword"><strong>PASSWORD</strong></label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                        <div class="invalid-feedback">Please enter your password.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cfPassword"><strong>CONFIRM PASSWORD</strong></label>
+                        <input type="password" name="cfmpassword" class="form-control" id="cfmPassword" placeholder="Confirm Password" required>
+                        <div class="invalid-feedback">Please confirm your password.</div>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="checkbox" required>
+                        <label for="checkbox" class="form-check-label"> Agree to terms and conditions</label>
+                        <div class="invalid-feedback">You must agree before sign up.</div>
+                    </div>
+                    <button type="submit" name="signup-submit" class="btn btn-success">SIGN UP</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+</html>

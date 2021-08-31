@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Products</title>
+
+	<!-- CSS files -->
+	<link rel="shortcut icon" href="/img/logo-white.ico" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/vendor/perfect-scrollbar/perfect-scrollbar.css">	
+	<link rel="stylesheet" href="/style/admin/util.css">
+	<link rel="stylesheet" href="/style/admin/style.css">
+	<link rel="stylesheet" type="text/css" href="/style/admin/products.css">
+
+	<!-- JS files -->
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+</head>
+
+<body>
+	<%- include('../../partials/sidebar') %>
+	<section class="home-section">
+		<%- include('../../partials/navbar') %>
+		<div class="container home-content">
+			<div class="row">
+                <%- include('../../partials/searchbox') %>
+            </div>
+			<div class="row justify-content-center">
+				<div class="col-12 table100 ver2 m-b-110">
+					<table data-vertable="ver2" id='my-table'>
+						<thead>
+							<tr class="row100 head">
+								<th class="column100 column1" data-column="column1">ID</th>
+								<th class="column100 column2" data-column="column2">Name</th>
+								<th class="column100 column3" data-column="column3">Author</th>
+								<th class="column100 column4" data-column="column4">Category</th>
+								<th class="column100 column5" data-column="column5">Price</th>
+								<th class="column100 column6" data-column="column6">In-stock</th>
+								<th class="column100 column7" data-column="columm7">Sales</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% data.forEach(function(stock) { %>
+								<tr class="row100">
+									<td class="column100 column1" data-column="column1">
+										<%= stock.bookID._id %>
+									</td>
+									<td class="column100 column2" data-column="column2">
+										<a href="/shop/book/<%= stock.bookID._id %>" style="color: inherit">
+											<%= stock.bookID.name %>
+										</a>										
+									</td>
+									<td class="column100 column3" data-column="column3">
+										<%= stock.bookID.author %>
+									</td>
+									<td class="column100 column4 text-center" data-column="column4">
+										<%= stock.bookID.category %>
+									</td>
+									<td class="column100 column5 id-col text-center" data-column="column5"><%= stock.bookID.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ) %></td>
+									<td class="column100 column6 text-center" data-column="column6">
+										<%= stock.stock %>
+									</td>
+									<td class="column100 column7 text-center" data-column="column7">
+										<%= stock.sales %>
+									</td>
+								</tr>
+								<% }) %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row create-box mr-0">
+				<div class="col-6 create box">
+					<div class="title">ADD NEW PRODUCT</div>
+					<div class="col-lg-12">
+						<form id="add-product-form" action="/admin/products/" method="POST"
+							role="form" style="display: block;" class="need-validation" novalidate>
+							<div class="form-group pt-4">
+								<input required type="text" name="name" id="name" tabindex="1"
+									class="form-control" placeholder="Product Name">
+								<div class="invalid-feedback">
+									Please provide book's name.
+								</div>
+							</div>
+							<div class="form-group pt-4">
+								<input required type="text" name="image" id="image" tabindex="0"
+									class="form-control" placeholder="Image path (e.g. /img/books/image-name)" value=<%= image %>>
+								<div class="invalid-feedback" style="display: block;">
+									<%= message %>
+								</div>
+							</div>
+							<div class="form-group pt-4 row">
+								<div class="col-6">
+									<input required type="text" name="author" id="author" tabindex="2"
+										class="form-control" placeholder="Author">
+									<div class="invalid-feedback">
+										Please provide book's author.
+									</div>
+								</div>
+								<div class="col-6">
+									<input required type="text" name="category" id="category" tabindex="3"
+										class="form-control" placeholder="Category">
+									<div class="invalid-feedback">
+										Please provide book's category.
+									</div>
+								</div>
+							</div>
+							<div class="form-group pt-4 row">
+								<div class="col-6">
+									<input required type="text" name="price" id="price" tabindex="4"
+										class="form-control" placeholder="Price">
+									<div class="invalid-feedback">
+										Please provide selling price.
+									</div>
+								</div>
+								<div class="col-6">
+									<input required type="text" name="quantity" id="quantity" tabindex="5"
+										class="form-control" placeholder="Stock Quantity">
+									<div class="invalid-feedback">
+										Please provide quantity.
+									</div>
+								</div>
+							</div>
+							<div class="form-group pt-4">
+								<input type="text" name="format" id="format" tabindex="6" class="form-control"
+									placeholder="Format">
+							</div>
+							<div class="form-group pt-4">
+								<input required type="text" name="description" id="description" tabindex="7"
+									class="form-control" placeholder="Description">
+								<div class="invalid-feedback">
+									Please add description.
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row justify-content-end align-items-center pt-4">
+									<div class="col-4 col-sm-offset-3">
+										<button type="submit" name="add-submit" id="add-submit"
+											class="btn btn-login button"
+											style="margin: 0px auto; display:block;">Create</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-4 create box" style="height:470px; max-height: fit-content;">
+					<div class="title">UPLOAD IMAGE</div>
+					<div class="col-lg-12">
+						<form id="upload-image-form" action="/admin/imageUpload" method="POST"
+							enctype="multipart/form-data" role="form" style="display: block;"
+							class="need-validation" novalidate>
+							<div class="form-group pt-4">
+								<input required type="file" name="imageFile" id="imageFile">
+							</div>
+							<div class="form-group">
+								<div class="row justify-content-end align-items-center pt-4">
+									<div class="col-4 col-sm-offset-3">
+										<button type="submit" name="upload-image-submit"
+											id="upload-image-submit" class="btn btn-login button"
+											style="margin: 0px auto; display:block;">Upload</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<hr>
+					<div class="title">PREVIEW</div>
+					<div>
+						<img src="<%= image %>" class="mx-auto d-block pt-4"
+							style="max-width: 200px; max-height: 200px;">
+					</div>
+				</div>
+			</div>
+			<div class="row create-box mr-0">
+				<div class="col-6 create box">
+					<div class="title">UPDATE PRODUCT</div>
+					<form role="form" style="display: block;" id="updateForm" class="need-validation" novalidate onsubmit="return false;">
+						<div class="invalid-feedback" style="display: inline-block;">
+							If you want to update product's image, please upload image in the above right box and fill the path in the image field.
+						</div>
+						<div class="form-group pt-4">
+							<input required type="text" name="update-target-id" id="update-target-id" tabindex="0" class="form-control"
+								placeholder="ID of the Product you wish to update">
+							<div class="invalid-feedback">
+								Please provide product's ID.
+							</div>
+						</div>
+						<div class="form-group pt-4">
+							<input type="text" name="new-image" id="new-image" tabindex="1" class="form-control"
+								placeholder="Image path (e.g. /img/books/image-name)" value="<%= image %>">
+						</div>
+						<div class="form-group pt-4">
+							<input type="text" name="new-name" id="new-name" tabindex="2" class="form-control"
+								placeholder="New Product Name">
+						</div>
+						<div class="form-group pt-4 row">
+							<div class="col-6">
+								<input type="text" name="new-author" id="new-author" tabindex="3" class="form-control"
+									placeholder="New Author">
+							</div>
+							<div class="col-6">
+								<input type="text" name="new-category" id="new-category" tabindex="4" class="form-control"
+									placeholder="New Category">
+							</div>
+						</div>
+						<div class="form-group pt-4 row">
+							<div class="col-6">
+								<input type="text" name="new-price" id="new-price" tabindex="5" class="form-control"
+									placeholder="New Price">
+							</div>
+							<div class="col-6">
+								<input type="text" name="new-quantity" id="new-quantity" tabindex="6" class="form-control"
+									placeholder="New Quantity">
+							</div>
+						</div>
+						<div class="form-group pt-4">
+							<input type="text" name="new-format" id="new-format" tabindex="7" class="form-control" placeholder="New Format">
+						</div>
+						<div class="form-group pt-4">
+							<input type="text" name="new-description" id="new-description" tabindex="8" class="form-control"
+								placeholder="New Description">
+						</div>
+						<div class="form-group">
+							<div class="row justify-content-end align-items-center pt-4">
+								<div class="col-4 col-sm-offset-3">
+									<button type="submit" name="update-submit" id="update-submit" class="btn btn-login button"
+										style="margin: 0px auto; display:block;" onclick="updateProduct();">Save Changes</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-4 create box">
+					<div class="title">DELETE PRODUCT</div>
+					<div class="col-lg-12">
+						<form id="delete-form" style="display: block;" onsubmit="return false;">
+							<div class="form-group pt-4">
+								<input type="text" name="delete-target-id" id="delete-target-id" tabindex="0" class="form-control"
+									placeholder="ID of the Product to delete" onchange="changeProperty();">
+							</div>
+							<div class="form-group">
+								<div class="row justify-content-end align-items-center pt-4">
+									<div class="col-4 col-sm-offset-3">
+										<button type="submit" name="delete-submit" id="delete-submit" class="btn btn-login button delete-button"
+											style="margin: 0px auto; display:block;" data-bs-toggle="modal" data-bs-target="#deleteModal" disabled>
+											Delete
+										</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<hr>
+					<div class="title">DELETE ALL PRODUCTS</div>
+					<button type="submit" name="delete-submit" id="delete-all-submit" class="btn btn-login button delete-button mt-4"
+						style="margin: 0px auto; display:block;" data-bs-toggle="modal" data-bs-target="#deleteAllModal">
+						Delete All
+					</button>
+				</div>
+			</div>			
+		</div>
+	</section>
+	<!-- Modal -->
+	<div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalLabel">Delete Product</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" id="modal-message">
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary delete-button" id="deleteProduct">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="deleteAllModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel2" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalLabel2">Delete All Products</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Are you sure you want to delete <strong>ALL PRODUCTS</strong>?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary delete-button" onclick="deleteAllProducts();">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="/script/admin/need-validation.js"></script>
+	<script src="/script/admin/sidebar.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+		crossorigin="anonymous"></script>
+	<script src="/script/admin/products.js"></script>
+	<script src="/script/admin/main.js"></script>
+	
+</body>
+
+</html>

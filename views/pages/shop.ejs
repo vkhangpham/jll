@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Shop | JongLe'Livre</title>
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat&amp;display=swap'>
+    <link href="/style/shop.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/img/logo.ico" />
+    
+    <!-- JS files -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <script src="/script/shop.js"></script>
+</head>
+<body>
+<% if (user) { %>
+    <%- include('../partials/header', {user: user}) %>
+<% } else { %> 
+    <%- include('../partials/header') %>
+<% } %> 
+
+<!-- Main -->
+<div class="main container-fluid paddding">
+    <section id="sidebar" class="col-3">
+        <div>
+            <div class="row border-bottom category">
+                <h6 class="bbb_viewed_title p-1 col-auto mr-auto"><span>Category</span></h6>
+            </div>
+            <div class="row category-content">
+                <p class="col-12"><a href="/shop"> All books </a> </p>
+                <p class="col-12"> <a href="/shop/category/Fiction"> Fiction </a> </p>
+                <p class="col-12"> <a href="/shop/category/Self-Help"> Self-Help </p>
+                <p class="col-12"> <a href="/shop/category/Social Science"> Social Science </p>
+                <p class="col-12"> <a href="/shop/category/Poetry"> Poetry </p>
+            </div>
+        </div>
+        <div>
+            <div class="row border-bottom category">
+                <h6 class="bbb_viewed_title p-1 col-auto mr-auto"><span>Author</span></h6>
+            </div>
+            <div class="row category-content">
+                <p class="col-12"> <a href="/shop/author/Andy Weir"> Andy Weir </a> </p>
+                <p class="col-12"><a href="/shop/author/Rupi Kaur"> Rupi Kaur </a></p>
+                <p class="col-12"><a href="/shop/author/Homer"> Homer </a></p>
+                <p class="col-12"><a href="/shop/author/Charles Bukowski"> Charles Bukowski </a></p>
+                <p class="col-12"><a href="/shop/author/J.K. Rowling"> J.K. Rowling </a></p>
+            </div>
+        </div>
+        <div>
+            <div class="row border-bottom category">
+                <h6 class="bbb_viewed_title p-1 col-auto mr-auto"><span>Price Range</span></h6>
+            </div>
+            <div class="row category-content">
+                <p class="col-12"> <a href="/shop/price/low"> Less than 200.000 VND </a></p>
+                <p class="col-12"> <a href="/shop/price/medium"> 200.000 - 300.000 VND </a></p>
+                <p class="col-12"> <a href="/shop/price/high"> More than 300.000 VND </a></p>
+            </div>
+        </div>
+    </section>
+    <section id="products" class="col-9">
+        <div class="container-fluid">
+            <div class="row">
+                <h3><%= title %></h3>
+            </div>
+            <hr>
+            <div class="row">
+                <% data.forEach(function(book) { %>
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                        <div class="bbb_viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                        <div class="bbb_viewed_image shadow border rounded"><img src="<%= book.image %>" class="img-fluid"></div>
+                        <div class="bbb_viewed_content text-center">
+                            <div class="bbb_viewed_name"><a href="/shop/book/<%= book._id %>" title="<%= book.name %>"> <%= book.name %> </a></div>
+                            <div class="bbb_viewed_price"><%= book.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") %> VND</div>
+                        </div>
+                    </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div> 
+
+<!-- Pagination -->
+    <% if(noMatch == 0) { %>
+        <div class="row justify-content-end">
+            <% if(pages > 0) { %>
+                <nav class="ml-auto">
+                    <ul class="pagination" style="margin-top: 2rem;">
+
+                        <% if(current == 1) { %>
+                            <li class="page-item disabled">
+                                <a class="page-link" href="/shop">First</a>
+                            </li>  
+                        <% } else { %>
+                            <li class="page-item">
+                                <a class="page-link" href="/shop">First</a>
+                            </li>
+                        <% } %>
+
+                        <% var i = (Number(current) > 3 ? Number(current) - 2 : 1) %>
+                        <% if(i !== 1) { %>
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">...</a>
+                            </li>
+                        <% } %>
+
+                        <% for(; i <= (Number(current) + 2) && i <= pages; i++) { %>
+                            <% if(i == current) { %>
+                                <li class="page-item active">
+                                    <a class="page-link" href="/shop/<%= i %>/"> <%= i %> </a>
+                                </li>
+                            <% } else { %>
+                                <li class="page-item">
+                                    <a class="page-link" href="/shop/<%= i %>/"> <%= i %> </a>
+                                </li>
+                            <% } %>
+                            <% if (i == Number(current) + 2 && i < pages) { %>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">...</a>
+                                </li>
+                            <% } %>
+                        <% } %>
+
+                        <% if(current == pages) { %> 
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#"> Last </a>
+                            </li>
+                        <% } else { %>
+                            <li class="page-item">
+                                <a class="page-link" href="/shop/<%= pages %>/">Last</a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </nav>
+            <% } %>
+        </div>
+    <% } %>
+    <% if(flag == 0) { %>
+        <div class="row justify-content-end">
+            <% if(pages > 0) { %>
+                <nav class="ml-auto">
+                    <ul class="pagination" style="margin-top: 2rem;">
+
+                        <% if(current == 1) { %>
+                            <li class="page-item disabled">
+                                <a class="page-link" href="/shop/price/<%= flag1 %>">First</a>
+                            </li>  
+                        <% } else { %>
+                            <li class="page-item">
+                                <a class="page-link" href="/shop/price/<%= flag1 %>">First</a>
+                            </li>
+                        <% } %>
+
+                        <% var i = (Number(current) > 3 ? Number(current) - 2 : 1) %>
+                        <% if(i !== 1) { %>
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">...</a>
+                            </li>
+                        <% } %>
+
+                        <% for(; i <= (Number(current) + 2) && i <= pages; i++) { %>
+                            <% if(i == current) { %>
+                                <li class="page-item active">
+                                    <a class="page-link" href="/shop/price/<%= flag1 %>/<%= i %>/"> <%= i %> </a>
+                                </li>
+                            <% } else { %>
+                                <li class="page-item">
+                                    <a class="page-link" href="/shop/price/<%= flag1 %>/<%= i %>/"> <%= i %> </a>
+                                </li>
+                            <% } %>
+                            <% if (i == Number(current) + 2 && i < pages) { %>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">...</a>
+                                </li>
+                            <% } %>
+                        <% } %>
+
+                        <% if(current == pages) { %> 
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#"> Last </a>
+                            </li>
+                        <% } else { %>
+                            <li class="page-item">
+                                <a class="page-link" href="/shop/price/<%= flag1 %>/<%= pages %>/">Last</a>
+                            </li>
+                        <% } %>
+                    </ul>
+                </nav>
+            <% } %>
+        </div>
+    <% } %>
+</section>
+</div>
+
+<!--- Footer -->
+<%- include('../partials/footer') %>
+
+<script type='text/javascript'src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
+</body>
+</html>

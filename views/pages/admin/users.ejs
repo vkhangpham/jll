@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Users</title>
+
+    <!-- CSS files -->
+    <link rel="shortcut icon" href="/img/logo-white.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/style/admin/util.css">
+    <link rel="stylesheet" href="/style/admin/style.css">
+    <link rel="stylesheet" href="/style/admin/products.css">
+
+    <!-- JS files -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="/script/admin/products.js"></script>
+</head>
+
+<body>
+    <%- include('../../partials/sidebar') %>
+    <section class="home-section">
+        <%- include('../../partials/navbar') %>
+        <div class="container home-content">
+            <div class="row">
+                <%- include('../../partials/searchbox') %>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 table100 ver2 m-b-110">
+                    <table data-vertable="ver2" id="my-table">
+                        <thead>
+                            <tr class="row100 head">
+                                <th class="column100 column1" data-column="column1">ID</th>
+                                <th class="column100 column2" data-column="column2">Username</th>
+                                <th class="column100 column3" data-column="column3">Last Name</th>
+                                <th class="column100 column4" data-column="column4">First Name</th>
+                                <th class="column100 column5" data-column="column5">Admin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% data.forEach(function(user) { %>
+                                <tr class="row100">
+                                    <td class="column100 column1 text-center" data-column="column1">
+                                        <%= user._id %>
+                                    </td>
+                                    <td class="column100 column2 text-center" data-column="column2">
+                                        <%= user.username %>
+                                    </td>
+                                    <td class="column100 column3 text-center" data-column="column3">
+                                        <%= user.firstName %>
+                                    </td>
+                                    <td class="column100 column4 text-center" data-column="column4">
+                                        <%= user.lastName %>
+                                    </td>
+                                    <td class="column100 column5 id-col text-center" data-column="column5">
+                                        <%= user.admin %>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="/script/admin/sidebar.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+    
+    <script src="/script/admin/main.js"></script>
+    
+</body>
+</html>

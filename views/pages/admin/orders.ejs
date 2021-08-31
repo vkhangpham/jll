@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Orders</title>
+    
+    <!-- CSS files -->
+    <link rel="shortcut icon" href="/img/logo-white.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/style/admin/util.css">
+    <link rel="stylesheet" href="/style/admin/style.css">
+    <link rel="stylesheet" type="text/css" href="/style/admin/products.css">
+    <link rel="stylesheet" href="/style/admin/sidebar.css">
+    <style>
+        th.column100.column1,
+        td.column100.column1 {
+            width: 200px;
+        }
+        .btn-primary {
+            border: transparent;
+        }
+        .btn-primary:hover, .btn-primary:focus {
+            border: transparent;
+            background-color: #498374;
+        }
+        .details thead {
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+
+    <!-- JS files -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="/script/admin/products.js"></script>
+</head>
+
+<body>
+    <%- include('../../partials/sidebar') %>
+        <section class="home-section">
+            <%- include('../../partials/navbar') %>
+                <div class="container home-content">
+                    <div class="row">
+                        <%- include('../../partials/searchbox') %>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-12 table100 ver2 m-b-110">
+                            <table data-vertable="ver2" id="my-table">
+                                <thead>
+                                    <tr class="row100 head">
+                                        <th class="column100 column1" data-column="column1">Order ID</th>
+                                        <th class="column100 column2" data-column="column2">User</th>
+                                        <th class="column100 column3" data-column="column3">Status</th>
+                                        <th class="column100 column4" data-column="column4">Subtotal</th>
+                                        <th class="column100 column5" data-column="column5">Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% data.forEach(function(order) { %>
+                                        <tr class="row100">
+                                            <td class="column100 column1 text-center" data-column="column1">
+                                                <%= order._id %>
+                                            </td>
+                                            <td class="column100 column2 text-center" data-column="column2">
+                                                <%= order.user.username %>
+                                            </td>
+                                            <td class="column100 column3 text-center" data-column="column3">
+                                                <%= order.status %>
+                                            </td>
+                                            <td class="column100 column4 text-center" data-column="column4">
+                                                <%= order.subTotal %>
+                                            </td>
+                                            <td class="column100 column5 id-col text-center" data-column="column5">
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detail-modal"
+                    data-bs-whatever="<%= order._id %>">View Details</button>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="detail-modal" tabindex="-1" aria-labelledby="detail-modal-label"
+                    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="detail-modal-label">Order Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close" onclick="clearDisplay();"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="items" class="row">
+                                    <h5 class="mb-3">Items</h5>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <h5 class="mb-3">Shipping Details</h5>
+                                    <div class="mb-3" id="fullName"></div>
+                                    <div class="mb-3" id="address"></div>
+                                    <div class="mb-3" id="address2"></div>
+                                    <div class="mb-3" id="tel"></div>
+                                    <div class="mb-3" id="city"></div>
+                                    <div class="mb-3" id="zipCode"></div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <h5 class="mb-3">Payment Details</h5>
+                                    <div class="mb-3 col-6" id="card-number"></div>
+                                    <div class="mb-3 col-6" id="expired-date"></div>
+                                    <div class="mb-3 col-12" id="card-name"></div>
+                                </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="setStatus('Declined');">Decline</button>
+                                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="setStatus('Approved');">Approve</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        
+    <script src="/script/admin/sidebar.js"></script>
+    <script src="/script/admin/navbar.js"></script>
+    <script src="/script/admin/orders.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+    <script src="/script/admin/main.js"></script>        
+</body>
+
+</html>

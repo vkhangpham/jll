@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Your Cart | JongLe'Livre</title>
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat&amp;display=swap'>
+    <link rel="stylesheet" type="text/css" href="/style/cart.css" />
+    <link rel="shortcut icon" href="/img/logo.ico" />
+    
+    <!-- JS files -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+</head>
+
+<body>
+    <% if (user) { %>
+        <%- include('../partials/header', {user: user}) %>
+    <% } else { %> 
+        <%- include('../partials/header') %>
+    <% } %> 
+
+    <div class="bs-example">
+        <div class="btn-group d-flex">
+            <a href="#" type="button" class="btn btn-outline-secondary active-vl">Shopping Cart</a>
+            <a href="/checkout/shipping" type="button" class="btn btn-outline-secondary">Shipping Details</a>
+            <a href="/checkout/payment" type="button" class="btn btn-outline-secondary">Payment Options</a>
+        </div>
+    </div>
+
+    <div class="main container-fluid paddding">
+        <div class="row">
+            <section id="sidebar" class="col-9">
+                <div class="card card-body">
+                    <div class="row border-bottom category">
+                        <h6 class="bbb_viewed_title p-1 col-auto mr-auto"><span>Shopping Cart</span></h6>
+                    </div>
+                    <table class="table table-borderless table-shopping-cart">
+                        <thead class="text-muted">
+                            <tr class="small text-uppercase">
+                                <th scope="col" width="10%"></th>
+                                <th scope="col" width="45%"></th>
+                                <th scope="col" width="10%"></th>
+                                <th scope="col" class="text-right d-none d-md-block" width="35%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% data.items.forEach(function(item) { %>
+                                <tr>
+                                    <td>
+                                        <figure class="itemside align-items-center">
+                                            <div class="aside"><img src=<%=item.bookID.image %> class="img-sm"></div>
+                                        </figure>
+                                    </td>
+                                    <td>
+                                        <figcaption class="info"> <a href="/shop/book/<%=item.bookID._id %>" title="<%= item.bookID.name %>" class="title text-dark" data-abc="true"
+                                                style="font-size: x-large;" >
+                                                <%= item.bookID.name %>
+                                            </a>
+                                            <p class="text-muted small" style="font-size: large;">
+                                                <%= item.bookID.author %>
+                                            </p>
+                                            <div class="price-wrap"> 
+                                                <div class="price"
+                                                    style="font-size: x-large; text-decoration: none; color: #df3b3b">
+                                                    <%= item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ) %>
+                                                        VND
+                                            </div>
+                                            </div>
+                                        </figcaption>
+                                    </td>
+                                    <td>
+                                        <div class="custom input_number_product show">
+                                            <button class="btn_num num_1 button button_qty" type="button">-</button>
+                                            <input type="text" class="qtym form-control" name="quantity" value=<%=item.quantity %>
+                                            maxlength="2" onchange="if(this.value <= 0)this.value=1;">
+                                            <button class="btn_num num_2 button button_qty" type="button">+</button>
+                                        </div>
+                                    </td>
+                                    <td class="text-right d-none d-md-block"> 
+                                        <button class="btn btn-light remove" data-abc="true">Remove</button>
+                                        <span class="ids"> <%= item.bookID._id %> </span>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                    <div class="row justify-content-end">
+                        <button type="button" class="btn btn-secondary btn-lg" onclick="updateCart();">Update
+                            Cart</button>
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="sidebar" class="col-3">
+                <div class="card card-body">
+                    <div class="row border-bottom category">
+                        <h6 class="bbb_viewed_title p-1 col-auto mr-auto"><span>Summary</span></h6>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-5">
+                                <p class="title text-dark" style="font-size: large;">Subtotal:</p>
+                                <p class="title text-dark" style="font-size: large;">Shipping:</p>
+                                <p class="title text-dark" style="font-size: large;">Taxes:</p>
+                            </div>
+                            <div class="col-7">
+                                <p class="title text-dark font-weight-bold" style="font-size: large;">
+                                    <%= data.subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ) %> VND
+                                </p>
+                                <p class="title text-dark" style="font-size: large;">Free</p>
+                                <p class="title text-dark" style="font-size: large;">Free</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-5">
+                                <p class="title text-dark" style="font-size: large;">Total:</p>
+                            </div>
+                            <div class="col-7">
+                                <p class="title text-dark font-weight-bold" style="font-size: large;">
+                                    <%= data.subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ) %> VND
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <a href="/checkout/shipping"><button type="button" class="btn btn-secondary btn-lg">Proceed to Checkout</button></a>
+                        <a href="/shop"><button type="button" class="btn btn-secondary btn-lg">Continue
+                                Shopping</button></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!--- Footer -->
+	<%- include('../partials/footer') %>
+    
+    <script src="/script/cart.js"></script>
+</body>
+
+</html>

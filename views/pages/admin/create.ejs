@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style/admin/login.css">
+    <link rel="shortcut icon" href="/img/logo-white.ico" />
+    <title>Create Admin Account</title>
+</head>
+
+<body>
+    <%- include('../../partials/sidebar') %>
+    <section class="home-section">
+        <%- include('../../partials/navbar') %>
+        <div class="home-content">
+            <div class="sales-boxes">
+                <div class="top-sales box right d-block mx-auto">
+                    <div class="title">CREATE NEW ADMIN ACCOUNT</div>
+                    <div class="alert alert-danger mb-1" role="alert">
+                        This account will have <b>all administrative rights.</b>
+                    </div>
+                    <div class="col-lg-12">
+                        <form id="signup-form" action="/admin/users/signup" method="POST" role="form" style="display: block;" class="need-validation" novalidate>
+                            <div class="form-group pt-4">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input required type="text" name="firstName" id="firstName" tabindex="1" class="form-control" placeholder="First Name" value="">
+                                        <div class="invalid-feedback">
+                                            Please provide First Name.
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <input required type="text" name="lastName" id="lastName" tabindex="1" class="form-control" placeholder="Last Name" value="">
+                                        <div class="invalid-feedback">
+                                            Please provide Last Name.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group pt-4">
+                                <input required type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username">
+                                <div class="invalid-feedback">
+                                    Please provide a Username.
+                                </div>
+                            </div>
+                            <div class="form-group pt-4">
+                                <input required type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="E-mail">
+                                <div class="invalid-feedback">
+                                    Please provide an E-mail.
+                                </div>
+                            </div>
+                            <div class="form-group pt-4">
+                                <input required type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                <div class="invalid-feedback">
+                                    Please choose a Password.
+                                </div>
+                            </div>
+                            <div class="form-group pt-4">
+                                <input required type="password" name="cfmpassword" id="cfmpassword" tabindex="2" class="form-control" placeholder="Confirm Password">
+                                <div class="invalid-feedback">
+                                    Please confirm your password.
+                                </div>
+                            </div>
+                            <div class="row justify-content-end align-items-center pt-4">
+                                <div class="col-2 col-sm-offset-3">
+                                    <button type="submit" name="signup-submit" id="signup-submit" class="btn btn-login button" style="margin: 0px auto; display:block;">Sign Up</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </section>
+    <script src="/script/admin/need-validation.js"></script>
+    <script src="/script/admin/sidebar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+
+</html>
