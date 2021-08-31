@@ -20,7 +20,9 @@ router.post('/signup', (req, res, next) => {
         req.body.password, (err, user) => {
             if (err) {
                 res.statusCode = 500;
+                err.status = 500;
                 next(err);
+                return;
             } else {
                 if (req.body.firstName)
                     user.firstName = req.body.firstName;
@@ -31,6 +33,7 @@ router.post('/signup', (req, res, next) => {
                 user.save((err, user) => {
                     if (err) {
                         res.statusCode = 500;
+                        err.status = 500;
                         next(err);
                         return;
                     }

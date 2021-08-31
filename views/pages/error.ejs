@@ -4,40 +4,88 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home | JongLe'Livre</title>
+    <title>Error | JongLe'Livre</title>
 
     <!-- CSS files -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css'>
     <link rel="shortcut icon" href="/img/logo.ico">
     <link href="/style/header.css" rel="stylesheet">
-    <link rel="stylesheet" href="/style/syle.css">
+    <link rel="stylesheet" href="/style/style.css">
 
     <!-- JS files -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <%- include('../partials/header') %>
-        <div class="container-fluid padding">
-            <div class="row welcome text-center">
-                <div class="col-12">
-                    <h1 class="display-4">
-                        <%= error.status %>
-                    </h1>
-                </div>
-                <hr>
-                <div class="col-12">
-                    <p class="lead">
-                        <%= message %>
-                    </p>
-                </div>
-                <div class="col-12">
-                    <pre><%= error.stack %></pre>
-                </div>
-
+    <link rel="stylesheet" href="/style/shop.css">
+    <link rel="stylesheet" href="/style/header.css">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container-fluid align-items-center">
+            <img src="/img/logo.png" alt="LOGO" class="navbar-brand" width="75" height="75" style="padding-top:0">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item" id="home-menu">
+                        <a href="/" class="menu-item nav-link">Home</a>
+                    </li>
+                    <li class="nav-item" id="shop-menu">
+                        <a href="/shop" class="menu-item nav-link">Shop</a>
+                    </li>
+                    <li class="nav-item" id="about-menu">
+                        <a href="/about" class="menu-item nav-link">About</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto align-items-center">
+                    <li class="nav-item">
+                        <a href="/cart" class="nav-link"><i class='bx bxs-cart bx-md bx-tada-hover'
+                                style='color:#5f7a61' title="Cart"></i></a>
+                    </li>
+                </ul>
             </div>
         </div>
+    </nav>
+
+    <!--- Image Banner -->
+    <div id="slides" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/img/background.png" class="img-fluid">
+                <div class="carousel-caption">
+                    <h1 class="display-2" style="margin-bottom: 12px;">JongLe'Livre</h1>
+                    <h3>Juggle the books, balance the world</h3>
+                    <form action="/shop" method="GET" class="form-inline ml-auto justify-content-center">
+                        <input type="text" class="form-control mr-sm-2" id="search_id" name="search"
+                            placeholder="Search">
+                        <button type="submit" class="btn btn-outline-dark"><span class="fas fa-search"></span></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid padding">
+        <div class="row welcome ">
+            <div class="col-12 text-center">
+                <h1 class="display-4">
+                    <%= error.status %>
+                </h1>
+            </div>
+            <hr>
+            <div class="col-12 text-center">
+                <p class="lead">
+                    <%= message %>
+                </p>
+            </div>
+            <div class="col-12">
+                <pre><%= error.stack %></pre>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
