@@ -120,7 +120,7 @@ shopRouter.route('/price/:priceRange')
         let page = req.params.page || 1;
         if (req.params.priceRange == "low") {
             Books
-                .find({ price: { $lte: 200000 } })
+                .find({ price: { $lt: 200000 } })
                 .skip((perPage * page) - perPage)
                 .limit(perPage)
                 .sort({ price: 1 })
@@ -169,12 +169,12 @@ shopRouter.route('/price/:priceRange/:page')
         let page = req.params.page || 1;
         if (req.params.priceRange == "low") {
             Books
-                .find({ price: { $lte: 100000 } })
+                .find({ price: { $lt: 200000 } })
                 .skip((perPage * page) - perPage)
                 .limit(perPage)
                 .sort({ price: 1 })
                 .exec((err, book) => {
-                    Books.countDocuments({ price: { $lt: 100000 } }, (err, count) => {
+                    Books.countDocuments({ price: { $lt: 200000 } }, (err, count) => {
                         if (err) {
                             return next(err);
                         }
@@ -183,12 +183,12 @@ shopRouter.route('/price/:priceRange/:page')
                 })
         } else if (req.params.priceRange == "medium") {
             Books
-                .find({ price: { $gte: 100000, $lte: 350000 } })
+                .find({ price: { $gte: 200000, $lte: 300000 } })
                 .skip((perPage * page) - perPage)
                 .limit(perPage)
                 .sort({ price: 1 })
                 .exec((err, book) => {
-                    Books.countDocuments({ price: { $gte: 100000, $lte: 350000 } }, (err, count) => {
+                    Books.countDocuments({ price: { $gte: 200000, $lte: 300000 } }, (err, count) => {
                         if (err) {
                             return next(err);
                         }
@@ -197,12 +197,12 @@ shopRouter.route('/price/:priceRange/:page')
                 })
         } else if (req.params.priceRange == "high") {
             Books
-                .find({ price: { $gt: 350000 } })
+                .find({ price: { $gt: 300000 } })
                 .skip((perPage * page) - perPage)
                 .limit(perPage)
                 .sort({ price: 1 })
                 .exec((err, book) => {
-                    Books.countDocuments({ price: { $gt: 350000 } }, (err, count) => {
+                    Books.countDocuments({ price: { $gt: 300000 } }, (err, count) => {
                         if (err) {
                             return next(err);
                         }
