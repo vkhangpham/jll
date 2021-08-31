@@ -36,12 +36,12 @@ router.route('/')
 
 router.get('/signup', (req, res, next) => {
   res.statusCode = 200;
-  res.render('signup')
+  res.render('signup', {message: ""})
 })
 
 router.get('/login', (req, res, next) => {
   res.statusCode = 200;
-  res.render('login')
+  res.render('login', {message: ""});
 })
 
 router.get('/about', (req, res, next) => {
