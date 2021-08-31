@@ -77,13 +77,14 @@
                             type="button">+</button>
                     </div>
                 </div>
-                <% if (data1.instock) { %>
-                <div class="row">
-                    <button type="button" class="btn btn-secondary btn-lg" onclick="addToCart();">Add to cart</button>
-                </div>
-                <% } else if (!user) { %> 
+                
+                <% if (!user) { %> 
                 <div class="row">
                     <a class="btn btn-secondary btn-lg" href="/login">Add to cart</button>
+                </div>
+                <% } else if (data1.instock) { %>
+                <div class="row">
+                    <button type="button" class="btn btn-secondary btn-lg" onclick="addToCart();">Add to cart</button>
                 </div>
                 <% } else { %>
                 <div class="row">
