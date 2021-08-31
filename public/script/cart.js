@@ -38,7 +38,6 @@ async function updateCart() {
 }
 
 $(".button_qty").on("click", function () {
-
     var $button = $(this);
     var oldValue = $button.parent().find("input").val();
 
