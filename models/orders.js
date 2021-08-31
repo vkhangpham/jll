@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 let shippingSchema = new Schema({
     fullName: {
         type: String,
-        required: true
+        default: ''
     },
     address: { 
         type: String,
-        required: true
+        default: ''
     },
     address2: { 
         type: String,
@@ -16,36 +16,36 @@ let shippingSchema = new Schema({
     },
     tel: { 
         type: String,
-        required: true
+        default: ''
     },
     city: { 
         type: String,
-        required: true
+        default: ''
     },
     zipCode: { 
         type: String,
-        required: true
+        default: ''
     },
 });
 
 let paymentSchema = new Schema({
     creditCard: {
         type: String,
-        required: true
+        default: ''
     },
     cardName: {
         type: String,
-        required: true
+        default: ''
     },
     expiredDate: {
         type: Date,
-        required: true
+        default: new Date("11/22/2023")
     },
     cvv: {
         type: Number,
-        min: 000,
+        min: 100,
         max: 999,
-        required: true
+        default: 100
     }
 });
 

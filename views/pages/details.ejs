@@ -72,9 +72,9 @@
                         <input type="text" id="qtym" name="quantity" value="1" maxlength="2"
                             class="form-control prd_quantity"
                             onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
-                            onchange="var stock = document.getElementById('stock').innerHTML;if(this.value <= 0) this.value=1;if(this.value >= stock) this.value=stock;">
+                            onchange="var stock = document.getElementById('stock').innerHTML; stock = (stock > 99) ? 99 : stock; if(this.value <= 0) this.value=1;if(this.value >= stock) this.value=stock;">
                         <button class="btn_num num_2 button button_qty"
-                            onclick="var result = document.getElementById('qtym'); var stock = document.getElementById('stock').innerHTML; var qtypro = result.value; if( !isNaN( qtypro ) && qtypro < stock) result.value++;return false;"
+                            onclick="var result = document.getElementById('qtym'); var stock = document.getElementById('stock').innerHTML; stock = (stock > 99) ? 99 : stock; var qtypro = result.value; if( !isNaN( qtypro ) && qtypro < stock) result.value++;return false;"
                             type="button">+</button>
                     </div>
                 </div>
