@@ -81,11 +81,15 @@
                 <div class="row">
                     <button type="button" class="btn btn-secondary btn-lg" onclick="addToCart();">Add to cart</button>
                 </div>
-                <% } else { %> 
+                <% } else if (!user) { %> 
+                <div class="row">
+                    <a class="btn btn-secondary btn-lg" href="/login">Add to cart</button>
+                </div>
+                <% } else { %>
                 <div class="row">
                     <button type="button" tabindex="-1" class="btn btn-secondary btn-lg" style="pointer-events: none" disabled>Out of stock</button>
                 </div>
-                <% } %>
+                <% }  %>
             </div>
             <span id="book-id" style="display:none;">
                 <%= data1._id %>
