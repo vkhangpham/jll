@@ -34,16 +34,6 @@ router.route('/')
       .catch((err) => next(err))
   })
 
-router.get('/signup', (req, res, next) => {
-  res.statusCode = 200;
-  res.render('signup', {message: ""})
-})
-
-router.get('/login', (req, res, next) => {
-  res.statusCode = 200;
-  res.render('login', {message: ""});
-})
-
 router.get('/about', (req, res, next) => {
   res.statusCode = 200;
   res.render('about', { user: req.user });
