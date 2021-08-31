@@ -10,6 +10,12 @@ router.use(express.urlencoded({ extended: true }));
 router.use(express.json())
 
 router.post('/signup', (req, res, next) => {
+    // Users.findOne({username: req.body.username})
+    // .then((user) => {
+    //     if (user) {
+
+    //     }
+    // })
     Users.register(new Users({ username: req.body.username }),
         req.body.password, (err, user) => {
             if (err) {
