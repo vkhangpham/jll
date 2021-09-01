@@ -13,7 +13,7 @@ function checkout() {
         }
     )
     .done(() => {
-        window.location.replace("/shop");
+        if (!alert("Your order has been created. Thank you for your support!")) { window.location.replace("/shop"); }
     });
 }
 

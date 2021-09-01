@@ -77,7 +77,6 @@ shopRouter.route('/:bookID')
             .catch((err) => next(err));
     })
     .delete(authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
-        console.log(req.params.bookID)
         Books.deleteOne({_id: req.params.bookID})
             .then(() => {
                 Stock.deleteOne({ bookID: req.params.bookID })

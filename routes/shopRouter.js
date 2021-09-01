@@ -17,8 +17,10 @@ shopRouter.route('/')
             // Get all campgrounds from DB
             Books.find({ name: regex }, function (err, book) {
                 if (err) {
-                    console.log(err);
+                    res.statusCode = 500;
+                    next(err);
                 } else {
+                    res.statusCode = 200;
                     res.render('shop', { data: book, noMatch: 1, flag: 1, title: "All books", user: req.user });
                 }
             });
@@ -30,8 +32,10 @@ shopRouter.route('/')
                 .exec((err, book) => {
                     Books.countDocuments((err, count) => {
                         if (err) {
-                            return next(err);
+                            res.statusCode = 500;
+                            next(err);
                         }
+                        res.statusCode = 200;
                         res.render('shop', { data: book, current: page, pages: Math.ceil(count / perPage), noMatch: 0, flag: 1, title: "All books", user: req.user })
                     })
                 })
@@ -47,8 +51,10 @@ shopRouter.route('/:page')
             // Get all campgrounds from DB
             Books.find({ name: regex }, function (err, book) {
                 if (err) {
-                    console.log(err);
+                    res.statusCode = 500;
+                    next(err);
                 } else {
+                    res.statusCode = 200;
                     res.render('shop', { data: book, noMatch: 1, flag: 1, title: "All books", user: req.user });
                 }
             });
@@ -72,8 +78,10 @@ shopRouter.route('/author/:authorName')
     .get((req, res, next) => {
         Books.find({ author: req.params.authorName }, function (err, book) {
             if (err) {
-                console.log(err);
+                res.statusCode = 500;
+                next(err);
             } else {
+                res.statusCode = 200;
                 res.render('shop', { data: book, noMatch: 1, flag: 1, title: req.params.authorName, user: req.user });
             }
         });
@@ -83,8 +91,10 @@ shopRouter.route('/category/:categoryName')
     .get((req, res, next) => {
         Books.find({ category: req.params.categoryName }, function (err, book) {
             if (err) {
-                console.log(err);
+                res.statusCode = 500;
+                next(err);
             } else {
+                res.statusCode = 200;
                 res.render('shop', { data: book, noMatch: 1, flag: 1, title: req.params.categoryName, user: req.user });
             }
         });
