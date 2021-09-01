@@ -56,7 +56,10 @@ orderRouter.route('/')
                     .then((order) => {
                         order.items = cart.items;
                         order.subTotal = cart.subTotal;
-                        order.shippingDetails = req.session.shippingDetails;
+                        if (req.session.shippingDetails) {
+                            order.shippingDetails = req.session.shippingDetails;
+                        }
+                        
                         let payment = JSON.parse(req.body.paymentDetails);
                         order.paymentDetails = {
                             creditCard: payment.creditCard,
