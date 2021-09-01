@@ -18,7 +18,11 @@ router.route('/shipping')
             })
             .then((cart) => {
                 res.statusCode = 200;
-                res.render('shipping', { data: cart, user: req.user });
+                var shippingDetails;
+                if (req.session.shippingDetails) {
+                    shippingCheck = req.session.shippingDetails;
+                }
+                res.render('shipping', { data: cart, user: req.user, shippingDetails: shippingDetails });
             }, (err) => next(err))
             .catch((err) => next(err));
     })
@@ -37,7 +41,11 @@ router.route('/payment')
             })
             .then((cart) => {
                 res.statusCode = 200;
-                res.render('payment', { data: cart, user: req.user });
+                var shippingCheck = false;
+                if (req.session.shippingDetails) {
+                    shippingCheck = true;
+                }
+                res.render('payment', { data: cart, user: req.user, shippingCheck: shippingCheck});
             }, (err) => next(err))
             .catch((err) => next(err));
     })

@@ -47,13 +47,13 @@
                     <form class="forms-sample" onsubmit="return false;" class="need-validation" novalidate>
                         <div class="form-group row">
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Full Name">
+                                <input onkeyup="checkForm()" type="text" class="form-control input-check" id="fullName" name="fullName" placeholder="Full Name">
                                 <div class="invalid-feedback">
                                     Please provide your full name.
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="tel" name="tel" placeholder="Phone Number">
+                                <input onkeyup="checkForm()" type="text" class="form-control input-check" id="tel" name="tel" placeholder="Phone Number">
                                 <div class="invalid-feedback">
                                     Please provide your phone number.
                                 </div>
@@ -61,7 +61,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                                <input onkeyup="checkForm()" type="text" class="form-control input-check" id="address" name="address" placeholder="Address">
                                 <div class="invalid-feedback">
                                     Please provide your address.
                                 </div>
@@ -69,24 +69,24 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                <input type="text" class="form-control" id="address2" name="address2" placeholder="Address 2">
+                                <input onkeyup="checkForm()" type="text" class="form-control input-check" id="address2" name="address2" placeholder="Address 2">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="city" name="city"placeholder="City">
+                                <input onkeyup="checkForm()" type="text" class="form-control input-check" id="city" name="city"placeholder="City">
                                 <div class="invalid-feedback">
                                     Please provide your city.
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="Zip/Postal Code">
+                                <input onkeyup="checkForm()" type="text" class="form-control input-check" id="zipCode" name="zipCode" placeholder="Zip/Postal Code">
                                 <div class="invalid-feedback">
                                     Please provide a proper zip code.
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </form>                    
                 </div>
                 <div class="card card-body">
                     <div class="row border-bottom category">
@@ -140,7 +140,11 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <button type="button" class="btn btn-secondary btn-lg" onclick="proceed();">Next</button>
+                        <% if (data.subTotal == 0) { %>
+                            <button type="button" class="btn btn-secondary btn-lg" disabled style="pointer-events: none;">Next</button>
+                        <% } else { %>
+                            <button type="button" class="btn btn-secondary btn-lg" onclick="proceed();" id="next-button" disabled style="pointer-events: none;">Next</button>
+                        <% } %>  
                         <a href="/shop"><button type="button" class="btn btn-secondary btn-lg">Cancel</button></a>
                     </div>
                 </div>

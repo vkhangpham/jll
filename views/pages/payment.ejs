@@ -43,18 +43,23 @@
                     <div class="row border-bottom category">
                         <h6 class="bbb_viewed_title p-1 col-auto mr-auto"><span>Payment Method</span></h6>
                     </div>
-                    <form class="forms-sample">
+                    <% if (shippingCheck == false) { %>
+                        <div class="alert alert-danger mb-1 mt-3" role="alert">
+                        Please fill in <b>shipping details</b> first.
+                        </div>
+                    <% } %>
+                    <form class="forms-sample" >
                         <div class="col-md-12 mb-3">
                             <div class="p-3 border">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="customCheck"
+                                    <input onkeyup="checkForm()" type="checkbox" class="custom-control-input input-check" name="customCheck"
                                         id="customCheck1" checked>
                                     <label class="custom-control-label" for="customCheck1">Credit Card</label>
                                     <p class="text-muted small" style="font-size: small;">We only accept AGRIBANK card at the moment. We are sorry for this inconvenience.</p>
                                     <div class="form-group row">
                                         <div class="col-sm-6">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="ID Card" id="creditCard">
+                                                <input onkeyup="checkForm()" type="text" class="form-control input-check" placeholder="ID Card" id="creditCard">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text"><i
                                                             class="bi-credit-card-2-front"></i></span>
@@ -63,19 +68,19 @@
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="MM-YY" id="expiredDate">
+                                                <input onkeyup="checkForm()" type="text" class="form-control input-check" placeholder="MM-YY" id="expiredDate">
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="CVV" id="cvv">
+                                                <input onkeyup="checkForm()" type="text" class="form-control input-check" placeholder="CVV" id="cvv">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-12">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Card Holder Name" id="cardName">
+                                                <input onkeyup="checkForm()" type="text" class="form-control input-check" placeholder="Card Holder Name" id="cardName">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text"><i
                                                             class="bi-person-badge"></i></span>
@@ -150,7 +155,13 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <button type="button" class="btn btn-secondary btn-lg" onclick="checkout()">Pay Now</button>
+                        <% if (shippingCheck == false) { %>
+                            <button type="button" class="btn btn-secondary btn-lg" disabled style="pointer-events: none;">Pay Now</button>
+                        <% } else if (data.subTotal == 0) { %>
+                            <button type="button" class="btn btn-secondary btn-lg" disabled style="pointer-events: none;">Pay Now</button>
+                        <% } else { %>
+                            <button type="button" class="btn btn-secondary btn-lg" onclick="checkout()" id="pay-button" disabled style="pointer-events: none;">Pay Now</button>
+                        <% } %>
                         <a href="/shop"><button type="button" class="btn btn-secondary btn-lg">Cancel</button></a>
                     </div>
                 </div>

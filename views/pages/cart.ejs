@@ -135,7 +135,11 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <a href="/checkout/shipping"><button type="button" class="btn btn-secondary btn-lg">Proceed to Checkout</button></a>
+                        <% if (data.subTotal == 0) { %>
+                            <button type="button" class="btn btn-secondary btn-lg" disabled style="pointer-events: none;">Proceed to Checkout</button>
+                        <% } else { %>
+                            <a href="/checkout/shipping"><button type="button" class="btn btn-secondary btn-lg">Proceed to Checkout</button></a>
+                        <% } %>  
                         <a href="/shop"><button type="button" class="btn btn-secondary btn-lg">Continue
                                 Shopping</button></a>
                     </div>

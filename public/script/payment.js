@@ -16,3 +16,23 @@ function checkout() {
         window.location.replace("/shop");
     });
 }
+
+function checkForm()
+{
+    var elements = $('input.input-check');
+
+    var cansubmit= true;
+    for(var i = 0; i < elements.length; i++)
+    {
+        if(elements[i].value.length == 0 && elements[i].type != "button")
+        {
+            cansubmit = false;
+        }
+
+    }
+    if (cansubmit) {
+        $("#pay-button").prop('disabled', false).css("pointer-events", "auto");
+    } else {
+        $("#pay-button").prop('disabled', true).css("pointer-events", "none");
+    } 
+};
